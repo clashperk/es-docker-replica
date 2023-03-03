@@ -1,0 +1,11 @@
+node_modules
+dist/
+creds.txt
+http_ca.crt
+index.js
+package.json
+package-lock.json
+commands.yml
+dump
+.DS_Store
+.env
