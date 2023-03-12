@@ -223,12 +223,12 @@ services:
 
 volumes:
   certs:
-    name: es-certs
+    name: local
   esdata01:
-    name: es-data-01
+    name: local
   esdata02:
-    name: es-data-02
+    name: local
   esdata03:
-    name: es-data-03
+    name: local
   kibanadata:
-    name: es-kibana-data
+    name: local
