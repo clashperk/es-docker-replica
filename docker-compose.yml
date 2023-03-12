@@ -77,7 +77,7 @@ services:
       - node.roles=[master]
       - cluster.name=${CLUSTER_NAME}
       # - cluster.initial_master_nodes=es01,es02,es03
-      - discovery.seed_hosts=es02,es03
+      # - discovery.seed_hosts=es02,es03
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - bootstrap.memory_lock=true
       - xpack.security.enabled=true
@@ -117,9 +117,10 @@ services:
       - esdata02:/usr/share/elasticsearch/data
     environment:
       - node.name=es02
+      - node.roles=[data]
       - cluster.name=${CLUSTER_NAME}
       # - cluster.initial_master_nodes=es01,es02,es03
-      - discovery.seed_hosts=es01,es03
+      # - discovery.seed_hosts=es01,es03
       - bootstrap.memory_lock=true
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
@@ -158,9 +159,10 @@ services:
       - esdata03:/usr/share/elasticsearch/data
     environment:
       - node.name=es03
+      - node.roles=[data]
       - cluster.name=${CLUSTER_NAME}
       # - cluster.initial_master_nodes=es01,es02,es03
-      - discovery.seed_hosts=es01,es02
+      # - discovery.seed_hosts=es01,es02
       - bootstrap.memory_lock=true
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
