@@ -120,7 +120,7 @@ services:
       - node.roles=[data]
       - cluster.name=${CLUSTER_NAME}
       - cluster.initial_master_nodes=es01
-      # - discovery.seed_hosts=es01,es03
+      - discovery.seed_hosts=es01,es03
       - bootstrap.memory_lock=true
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
