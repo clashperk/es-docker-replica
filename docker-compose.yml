@@ -223,12 +223,12 @@ services:
 
 volumes:
   certs:
-    name: local
+    driver: local
   esdata01:
-    name: local
+    driver: local
   esdata02:
-    name: local
+    driver: local
   esdata03:
-    name: local
+    driver: local
   kibanadata:
-    name: local
+    driver: local
