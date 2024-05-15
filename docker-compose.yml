@@ -30,18 +30,21 @@ services:
           "      - localhost\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
+          "      - ${PUBLIC_IP}\n"\
           "  - name: es02\n"\
           "    dns:\n"\
           "      - es02\n"\
           "      - localhost\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
+          "      - ${PUBLIC_IP}\n"\
           "  - name: es03\n"\
           "    dns:\n"\
           "      - es03\n"\
           "      - localhost\n"\
           "    ip:\n"\
           "      - 127.0.0.1\n"\
+          "      - ${PUBLIC_IP}\n"\
           > config/certs/instances.yml;
           bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
           unzip config/certs/certs.zip -d config/certs;
@@ -74,9 +77,11 @@ services:
       - ${ES_PORT}:9200
     environment:
       - node.name=es01
-      - node.roles=[master]
+      - network.host=0.0.0.0
+      - http.host=0.0.0.0
+      - node.roles=master,data,ingest
       - cluster.name=${CLUSTER_NAME}
-      - cluster.initial_master_nodes=es01
+      - cluster.initial_master_nodes=es01,es02,es03
       - discovery.seed_hosts=es02,es03
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - bootstrap.memory_lock=true
@@ -117,7 +122,9 @@ services:
       - esdata02:/usr/share/elasticsearch/data
     environment:
       - node.name=es02
-      - node.roles=[data]
+      - network.host=0.0.0.0
+      - http.host=0.0.0.0
+      - node.roles=master,data,ingest
       - cluster.name=${CLUSTER_NAME}
       - cluster.initial_master_nodes=es01
       - discovery.seed_hosts=es01,es03
@@ -159,9 +166,11 @@ services:
       - esdata03:/usr/share/elasticsearch/data
     environment:
       - node.name=es03
-      - node.roles=[data]
+      - network.host=0.0.0.0
+      - http.host=0.0.0.0
+      - node.roles=master,data,ingest
       - cluster.name=${CLUSTER_NAME}
-      - cluster.initial_master_nodes=es01
+      - cluster.initial_master_nodes=es01,es02,es03
       - discovery.seed_hosts=es01,es02
       - bootstrap.memory_lock=true
       - xpack.security.enabled=true
